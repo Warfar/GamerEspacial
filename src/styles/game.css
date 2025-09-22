@@ -1,0 +1,303 @@
+/* ===== Layout general ===== */
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  position: relative;
+  overflow: hidden;
+  background: #000;
+
+  background-image: 
+    radial-gradient(1px 1px, #fff, transparent),
+    radial-gradient(1px 1px, #fff, transparent),
+    radial-gradient(1px 1px, #fff, transparent);
+  background-size: 200px 200px, 150px 150px, 100px 100px;
+  background-position: 0 0, 50px 100px, 100px 50px;
+  animation: starTwinkle 10s linear infinite;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { background-position: 0 0, 50px 100px, 100px 50px; }
+  50% { background-position: 50px 50px, 0 150px, 150px 0; }
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: rgba(10,10,30,0.95);
+  border-bottom: 1px solid #0ff;
+  box-shadow: 0 2px 10px rgba(0,255,255,0.2);
+  flex-wrap: wrap;
+}
+
+.navbar-logo { font-size: 1.5rem; font-weight: bold; color: #0ff; }
+
+.navbar-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.navbar button {
+  padding: 8px 12px;
+  background: linear-gradient(90deg, #0ff, #00f);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #000;
+  transition: all 0.2s ease;
+}
+.navbar button:hover { transform: scale(1.1); box-shadow: 0 0 10px #0ff; }
+
+/* Navbar dropdown */
+.navbar-dropdown { position: relative; }
+.navbar-dropdown button {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(90deg,#0ff,#00f);
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}
+.dropdown-menu {
+  position: absolute;
+  top: 38px;
+  right: 0;
+  background: rgba(0,0,50,0.8);
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  animation: fadeIn 0.3s ease;
+}
+.dropdown-item {
+  padding: 5px;
+  color: #0ff;
+  background: rgba(255,255,255,0.05);
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+.dropdown-item:hover { background: rgba(0,255,255,0.2); }
+
+/* ===== Game container ===== */
+.game-container {
+  display: flex;
+  flex: 1;
+  padding: 15px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* ===== Dashboards ===== */
+.dashboard {
+  width: 220px;
+  background: rgba(0,0,50,0.4);
+  border-radius: 15px;
+  padding: 15px;
+  max-height: 85vh;
+  overflow-y: auto;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(0,255,255,0.3);
+  animation: fadeIn 1s ease;
+}
+
+/* Eventos */
+.events .event {
+  background: rgba(0,255,255,0.1);
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 8px;
+  animation: flashEvent 1s ease;
+}
+
+/* Tabla de jugadores */
+.players-container {
+  width: 220px;
+  margin: 20px auto 0 auto;
+  background: rgba(0,0,50,0.4);
+  padding: 10px;
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.5s ease;
+}
+.players-footer { width: 100%; border-collapse: collapse; }
+.players-footer th, .players-footer td {
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 5px;
+  text-align: center;
+  font-size: 12px;
+  color: #0ff;
+}
+
+/* ===== Tablero ===== */
+.board-container { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 750px; }
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 70px);
+  grid-template-rows: repeat(6, 90px);
+  gap: 5px;
+  background: rgba(0,0,20,0.4);
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,255,255,0.3);
+}
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  position: relative;
+  transition: transform 0.3s;
+}
+.cell.red { background-color: #8B0000; }
+.cell.yellow { background-color: #FFD700; }
+.cell.blackhole { background-color: #111; }
+.cell.blue { background-color: #1E90FF; color: #fff; }
+
+/* Turno */
+.turn-indicator { text-align: center; font-size: 1.2rem; font-weight: bold; margin-top: 15px; color: #0ff; text-shadow: 0 0 5px #0ff; }
+
+/* Contenedor astronauta */
+.astronauta-container {
+  position: absolute;
+  bottom: 300px;
+  right: 300px; 
+  width: 80px;
+  height: 80px;
+  z-index: 1;
+  animation: floatPlanet 5s ease-in-out infinite alternate;
+}
+.astronauta-container img {
+  width: 750%;
+  height: 750%;
+  object-fit: contain;
+}
+
+/* ===== Animaciones ===== */
+@keyframes fadeIn { from {opacity:0; transform: translateY(-10px);} to {opacity:1; transform: translateY(0);} }
+@keyframes flashEvent { 0% { transform: scale(0.9); opacity: 0.5; } 50% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+@keyframes floatPlanet { 0% { transform: translateY(0px) } 100% { transform: translateY(-20px) } }
+
+/* ===== Partículas cursor ===== */
+.cursor-particle {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #0ff, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  animation: particleFade 0.5s forwards;
+  z-index: 9999;
+}
+@keyframes particleFade { 0% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); } }
+.player-marker { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #fff; position: absolute; top: 5px; left: 5px; z-index: 2; }
+
+/* ===== Modal acertijos ===== */
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 10000;
+}
+.modal-content {
+  background-color: #0a0a30;
+  padding: 20px 30px;
+  border-radius: 15px;
+  text-align: center;
+  min-width: 300px;
+  max-width: 500px;
+  box-shadow: 0 0 20px #0ff;
+  color: #0ff;
+}
+.modal-content input {
+  width: 80%; padding: 8px 10px; margin: 10px 0; border-radius: 8px; border: none; outline: none;
+}
+.modal-content button {
+  padding: 8px 15px; border-radius: 8px; border: none; cursor: pointer;
+  background: linear-gradient(90deg,#0ff,#00f); color: #000; font-weight: bold; margin-top: 10px;
+}
+
+/* ===== Responsivo mejorado ===== */
+@media(max-width: 1200px){
+  .game-container { flex-direction: column; align-items: center; gap: 15px; padding: 10px; }
+  .dashboard { width: 90%; max-height: 40vh; margin-bottom: 15px; }
+  .board { grid-template-columns: repeat(10, 60px); grid-template-rows: repeat(6, 80px); gap: 4px; padding: 8px; }
+  .cell { font-size: 12px; }
+  .player-marker { width: 16px; height: 16px; top: 3px; left: 3px; }
+  .turn-indicator { font-size: 1rem; }
+}
+
+@media(max-width: 768px){
+  .navbar { flex-direction: column; align-items: stretch; gap: 8px; padding: 8px 12px; }
+  .navbar-buttons { flex-wrap: wrap; justify-content: center; gap: 5px; }
+  .board { grid-template-columns: repeat(8, 45px); grid-template-rows: repeat(8, 45px); gap: 3px; }
+  .cell { font-size: 10px; }
+  .dashboard { display: none; } /* Oculta dashboard de sistemas en móviles */
+  .players-container { width: 95%; font-size: 12px; }
+  .astronauta-container { width: 60px; height: 60px; bottom: 150px; right: 150px; }
+}
+
+
+/* ===== Eventos debajo del turno solo en móviles ===== */
+@media(max-width: 768px){
+  /* Dashboard de sistemas desaparece */
+  .dashboard.systems { display: none; }
+
+  /* Dashboard de eventos se mueve debajo del turno */
+  .board-container + .dashboard.events {
+    display: block;
+    position: relative;       /* Dentro del flujo */
+    width: 95%;
+    max-height: 120px;        /* Altura fija */
+    overflow: hidden;         /* Sin scroll */
+    margin-top: 10px;
+    background: rgba(0,0,50,0.8);
+    padding: 8px;
+    border-radius: 10px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 10px rgba(0,255,255,0.3);
+  }
+
+  .board-container + .dashboard.events .event {
+    font-size: 12px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 2px 0;
+  }
+}
+
+@media(max-width: 768px){
+  .navbar-buttons {
+    display: flex;
+    flex-wrap: nowrap;           /* No se rompen en varias líneas */
+    justify-content: space-between; /* Espacio uniforme entre ellos */
+    width: 100%;
+  }
+
+  .navbar-buttons button {
+    flex: 1 1 22%;       /* Cada botón ocupa aproximadamente 1/4 del ancho */
+    font-size: 12px;     /* Ajusta texto para caber */
+    padding: 6px 4px;    /* Padding compacto */
+    margin: 0 2px;       /* Espacio pequeño entre botones */
+    white-space: nowrap;  /* Evita que el texto se rompa */
+  }
+}

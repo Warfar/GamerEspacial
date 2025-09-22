@@ -1,0 +1,161 @@
+/* Reset básico */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: #000;
+  overflow-x: hidden;
+  color: #fff;
+}
+
+/* Fondo animado de estrellas */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(1px 1px, #fff, transparent),
+              radial-gradient(1px 1px, #fff, transparent),
+              radial-gradient(1px 1px, #fff, transparent);
+  background-size: 200px 200px, 150px 150px, 100px 100px;
+  background-position: 0 0, 50px 100px, 100px 50px;
+  animation: starTwinkle 15s linear infinite;
+  z-index: -1;
+}
+
+@keyframes starTwinkle {
+  0%,100% { background-position: 0 0, 50px 100px, 100px 50px; }
+  50% { background-position: 50px 50px, 0 150px, 150px 0; }
+}
+
+/* Contenedor principal tipo formulario */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  backdrop-filter: blur(5px);
+}
+
+/* Card central */
+.form-card {
+  background: rgba(0,0,30,0.8);
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px #0ff;
+  max-width: 400px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Título */
+.title h1 {
+  font-size: 2rem;
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff;
+  margin: 0;
+  text-align: center;
+}
+.title p {
+  font-size: 1rem;
+  color: #fff;
+  margin: 0;
+  text-align: center;
+}
+
+/* Input jugador */
+.input-field {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  transition: all 0.2s;
+}
+.input-field:focus {
+  background: rgba(0,255,255,0.1);
+  box-shadow: 0 0 10px #0ff;
+}
+
+/* Roles */
+.roles-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+.role-btn {
+  flex: 1 1 calc(50% - 10px);
+  padding: 12px;
+  font-weight: bold;
+  color: #000;
+  background: linear-gradient(90deg, #00f, #0ff);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.role-btn:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
+.role-btn:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #0ff;
+}
+
+/* Scoreboard dentro de card */
+.scoreboard {
+  width: 100%;
+  background: rgba(0,0,50,0.6);
+  padding: 10px 15px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #0ff;
+}
+.scoreboard h3 {
+  margin: 0 0 10px 0;
+  text-align: center;
+  color: #0ff;
+  text-shadow: 0 0 5px #0ff;
+}
+.scoreboard ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.scoreboard li {
+  padding: 5px 0;
+  font-size: 14px;
+  color: #fff;
+  text-align: center;
+}
+
+/* Countdown */
+.countdown {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff;
+  margin-top: 10px;
+}
+
+/* Responsivo */
+@media(max-width: 480px){
+  .role-btn {
+    flex: 1 1 100%;
+  }
+  .form-card {
+    padding: 20px;
+  }
+}
