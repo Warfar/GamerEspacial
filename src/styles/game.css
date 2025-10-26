@@ -131,6 +131,8 @@
   border-radius: 10px;
   backdrop-filter: blur(8px);
   animation: fadeIn 0.5s ease;
+  max-height: 180px;
+  overflow-y: auto;
 }
 .players-footer { width: 100%; border-collapse: collapse; }
 .players-footer th, .players-footer td {
@@ -172,6 +174,23 @@
 /* Turno */
 .turn-indicator { text-align: center; font-size: 1.2rem; font-weight: bold; margin-top: 15px; color: #0ff; text-shadow: 0 0 5px #0ff; }
 
+/* ===== Sistema de la nave ===== */
+.system-bar {
+  width: 100%;
+  height: 20px;
+  background-color: #333;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 5px 0;
+}
+.system-level {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #0f0, #ff0);
+  border-radius: 10px;
+  transition: width 0.5s ease-in-out;
+}
+
 /* Contenedor astronauta */
 .astronauta-container {
   position: absolute;
@@ -183,8 +202,8 @@
   animation: floatPlanet 5s ease-in-out infinite alternate;
 }
 .astronauta-container img {
-  width: 750%;
-  height: 750%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 
@@ -235,7 +254,7 @@
   background: linear-gradient(90deg,#0ff,#00f); color: #000; font-weight: bold; margin-top: 10px;
 }
 
-/* ===== Responsivo mejorado ===== */
+/* ===== Responsivo ===== */
 @media(max-width: 1200px){
   .game-container { flex-direction: column; align-items: center; gap: 15px; padding: 10px; }
   .dashboard { width: 90%; max-height: 40vh; margin-bottom: 15px; }
@@ -250,54 +269,64 @@
   .navbar-buttons { flex-wrap: wrap; justify-content: center; gap: 5px; }
   .board { grid-template-columns: repeat(8, 45px); grid-template-rows: repeat(8, 45px); gap: 3px; }
   .cell { font-size: 10px; }
-  .dashboard { display: none; } /* Oculta dashboard de sistemas en móviles */
+  .dashboard { display: none; }
   .players-container { width: 95%; font-size: 12px; }
   .astronauta-container { width: 60px; height: 60px; bottom: 150px; right: 150px; }
 }
 
 
-/* ===== Eventos debajo del turno solo en móviles ===== */
-@media(max-width: 768px){
-  /* Dashboard de sistemas desaparece */
-  .dashboard.systems { display: none; }
+.dashboard.events {
+  width: 220px;
+  max-height: 300px;       /* Altura máxima */
+  overflow-y: auto;        /* Scroll vertical si hay demasiados eventos */
+  margin: 20px 0 0 0;
+  background: rgba(0,0,50,0.4);
+  padding: 10px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(0,255,255,0.3);
+}
+.events .event {
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 8px;
+  animation: flashEvent 1s ease;
+  word-break: break-word;  /* evita que texto largo rompa layout */
+}
 
-  /* Dashboard de eventos se mueve debajo del turno */
-  .board-container + .dashboard.events {
-    display: block;
-    position: relative;       /* Dentro del flujo */
-    width: 95%;
-    max-height: 120px;        /* Altura fija */
-    overflow: hidden;         /* Sin scroll */
-    margin-top: 10px;
-    background: rgba(0,0,50,0.8);
-    padding: 8px;
-    border-radius: 10px;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 0 10px rgba(0,255,255,0.3);
-  }
+/* ===== Contenedor astronauta ===== */
+.astronaut-container {
+  position: absolute;       /* Absoluto para no afectar nada del layout */
+  bottom: 200px;            /* Ajusta altura según tu preferencia */
+  right: 80%;               /* Centrado horizontal relativo a la pantalla */
+ /* Ajuste exacto del centrado */
+  width: 400px;             /* Tamaño inicial */
+  height: 450px;
+  z-index: 50;              /* Siempre sobre otros elementos */
+  pointer-events: none;     /* No interrumpe clicks */
+  animation: float 4s ease-in-out infinite alternate;
+}
 
-  .board-container + .dashboard.events .event {
-    font-size: 12px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    margin: 2px 0;
-  }
+.astronaut-container img,
+.astronaut {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;      /* Mantiene proporción de imagen */
+  display: block;
+}
+
+/* ===== Animación flotante ===== */
+@keyframes float {
+  0%   { transform: translateX(50%) translateY(0px); }
+  50%  { transform: translateX(50%) translateY(-20px); }
+  100% { transform: translateX(50%) translateY(0px); }
+}
+
+/* ===== Responsivo ===== */
+@media(max-width: 1200px){
+  .astronaut-container { width: 120px; height: 120px; bottom: 180px; }
 }
 
 @media(max-width: 768px){
-  .navbar-buttons {
-    display: flex;
-    flex-wrap: nowrap;           /* No se rompen en varias líneas */
-    justify-content: space-between; /* Espacio uniforme entre ellos */
-    width: 100%;
-  }
-
-  .navbar-buttons button {
-    flex: 1 1 22%;       /* Cada botón ocupa aproximadamente 1/4 del ancho */
-    font-size: 12px;     /* Ajusta texto para caber */
-    padding: 6px 4px;    /* Padding compacto */
-    margin: 0 2px;       /* Espacio pequeño entre botones */
-    white-space: nowrap;  /* Evita que el texto se rompa */
-  }
+  .astronaut-container { width: 90px; height: 90px; bottom: 150px; }
 }
